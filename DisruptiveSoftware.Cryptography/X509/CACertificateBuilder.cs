@@ -1,6 +1,7 @@
 ﻿using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Generators;
+using Org.BouncyCastle.Crypto.Operators;
 using Org.BouncyCastle.Crypto.Prng;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
@@ -62,8 +63,10 @@ namespace DisruptiveSoftware.Cryptography.X509
                 )
            );
 
+            var signatureFactory = new Asn1SignatureFactory(GetSignatureAlgorithm(this.KeySize), asymmetricCipherKeyPair.Private);
+
             // Generate X.509 Certificate.
-            var x509Certificate = X509V3CertificateGenerator.Generate(asymmetricCipherKeyPair.Private);
+            var x509Certificate = X509V3CertificateGenerator.Generate(signatureFactory);
 
             return new X509CertificateBuilderResult(x509Certificate, asymmetricCipherKeyPair.Private);
         }

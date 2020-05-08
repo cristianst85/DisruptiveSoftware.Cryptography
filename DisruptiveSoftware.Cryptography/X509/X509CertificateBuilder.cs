@@ -27,7 +27,6 @@ namespace DisruptiveSoftware.Cryptography.X509
         public virtual X509CertificateBuilder SetKeySize(uint keySize)
         {
             this.KeySize = (int)keySize;
-            X509V3CertificateGenerator.SetSignatureAlgorithm(GetSignatureAlgorithm(this.KeySize));
             return this;
         }
 
@@ -89,7 +88,7 @@ namespace DisruptiveSoftware.Cryptography.X509
             attributesValues.Add(value);
         }
 
-        private string GetSignatureAlgorithm(int keySize)
+        protected string GetSignatureAlgorithm(int keySize)
         {
             if (keySize == Constants.RSAKeySize.KeySize1024)
             {
