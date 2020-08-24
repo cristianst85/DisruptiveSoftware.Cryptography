@@ -61,10 +61,10 @@ namespace DisruptiveSoftware.Cryptography.X509
             return this;
         }
 
-        public SSLCertificateBuilder SetIssuerCertificate(byte[] issuerCertificate, SecureString issuerCeritficatePassword)
+        public SSLCertificateBuilder SetIssuerCertificate(byte[] issuerCertificate, SecureString issuerCertificatePassword)
         {
             this.IssuerCertificate = issuerCertificate;
-            this.IssuerCertificatePassword = issuerCeritficatePassword;
+            this.IssuerCertificatePassword = issuerCertificatePassword;
             return this;
         }
 
