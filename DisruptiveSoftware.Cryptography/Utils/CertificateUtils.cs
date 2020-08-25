@@ -1,4 +1,5 @@
-﻿using Org.BouncyCastle.OpenSsl;
+﻿using DisruptiveSoftware.Cryptography.Extensions;
+using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509;
 using System;
@@ -82,6 +83,11 @@ namespace DisruptiveSoftware.Cryptography.Utils
                 X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet
             );
 
+            if (!x509Certificate2.HasPrivateKey)
+            {
+                return null;
+            }
+
             using (var rsa = x509Certificate2.PrivateKey as RSACryptoServiceProvider)
             {
                 return ExportPrivateKeyToPEM(rsa);
@@ -90,9 +96,17 @@ namespace DisruptiveSoftware.Cryptography.Utils
 
         public static byte[] ExportPrivateKey(byte[] certificateData, SecureString certificatePassword)
         {
+            var privateKey = ExportPrivateKeyToPEM(certificateData, certificatePassword);
+            
+            // Certificate does not have a private key.
+            if (privateKey.IsNullOrEmpty())
+            {
+                return null;
+            }
+
             var stringBuilder = new StringBuilder();
 
-            foreach (var pemLine in ExportPrivateKeyToPEM(certificateData, certificatePassword).Split('\n'))
+            foreach (var pemLine in privateKey.Split('\n'))
             {
                 // Trim padding CR and white spaces.
                 var line = pemLine.TrimEnd('\r').Trim();
