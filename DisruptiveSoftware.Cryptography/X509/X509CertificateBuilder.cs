@@ -1,6 +1,10 @@
 ﻿using DisruptiveSoftware.Cryptography.Extensions;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Crypto.Prng;
+using Org.BouncyCastle.Math;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
 using System;
 using System.Collections;
@@ -11,11 +15,13 @@ namespace DisruptiveSoftware.Cryptography.X509
     {
         protected X509V3CertificateGenerator X509V3CertificateGenerator { get; private set; }
 
-        protected IList AttributesOids { get; private set; } 
+        protected IList AttributesOids { get; private set; }
+
         protected IList AttributesValues { get; private set; }
 
         protected int KeySize { get; private set; }
-        protected long SerialNumber { get; private set; }
+
+        protected BigInteger SerialNumber { get; private set; }
 
         public X509CertificateBuilder()
         {
@@ -30,10 +36,17 @@ namespace DisruptiveSoftware.Cryptography.X509
             return this;
         }
 
-        public virtual X509CertificateBuilder SetSerialNumber(ulong serialNumber)
+        public virtual X509CertificateBuilder SetSerialNumber(long serialNumber)
         {
-            this.SerialNumber = (int)serialNumber;
-            X509V3CertificateGenerator.SetSerialNumber(Org.BouncyCastle.Math.BigInteger.ValueOf(this.SerialNumber));
+            this.SerialNumber = BigInteger.ValueOf(serialNumber);
+            X509V3CertificateGenerator.SetSerialNumber(this.SerialNumber);
+            return this;
+        }
+
+        public virtual X509CertificateBuilder WithRandomSerialNumber()
+        {
+            this.SerialNumber = GetRandomSerialNumber();
+            X509V3CertificateGenerator.SetSerialNumber(this.SerialNumber);
             return this;
         }
 
@@ -110,6 +123,15 @@ namespace DisruptiveSoftware.Cryptography.X509
             {
                 throw new Exception(string.Format("Unable to determine signature algorithm. Invalid private key size {0}.", keySize));
             }
+        }
+
+        protected BigInteger GetRandomSerialNumber()
+        {
+            return BigIntegers.CreateRandomInRange(
+                BigInteger.One,
+                BigInteger.ValueOf(long.MaxValue),
+                new SecureRandom(new CryptoApiRandomGenerator())
+            );
         }
 
         public virtual X509CertificateBuilder SetNotBefore(DateTime notBefore)

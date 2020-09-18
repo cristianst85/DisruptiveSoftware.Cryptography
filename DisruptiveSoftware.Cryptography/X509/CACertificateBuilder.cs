@@ -51,7 +51,7 @@ namespace DisruptiveSoftware.Cryptography.X509
                 new AuthorityKeyIdentifier(
                     SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(asymmetricCipherKeyPair.Public),
                     new GeneralNames(new GeneralName(new X509Name(AttributesOids, AttributesValues))),
-                    Org.BouncyCastle.Math.BigInteger.ValueOf(this.SerialNumber)
+                    this.SerialNumber
                 )
             );
 

@@ -1,4 +1,5 @@
 ﻿using DisruptiveSoftware.Cryptography.BouncyCastle.Extensions;
+using DisruptiveSoftware.Cryptography.Extensions;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
@@ -31,9 +32,15 @@ namespace DisruptiveSoftware.Cryptography.X509
             return this;
         }
 
-        public new SSLCertificateBuilder SetSerialNumber(ulong serialNumber)
+        public new SSLCertificateBuilder SetSerialNumber(long serialNumber)
         {
             base.SetSerialNumber(serialNumber);
+            return this;
+        }
+
+        public new SSLCertificateBuilder WithRandomSerialNumber()
+        {
+            base.WithRandomSerialNumber();
             return this;
         }
 
@@ -159,7 +166,7 @@ namespace DisruptiveSoftware.Cryptography.X509
                 new AuthorityKeyIdentifier(
                     SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(issuerX509Certificate2.GetPublicKeyAsAsymmetricKeyParameter()),
                     new GeneralNames(new GeneralName(issuerSubjectDN)),
-                    Org.BouncyCastle.Math.BigInteger.ValueOf(long.Parse(issuerX509Certificate2.SerialNumber))
+                    new Org.BouncyCastle.Math.BigInteger(issuerX509Certificate2.GetSerialNumber())
                 )
             );
 
