@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## 0.3.0 (2020-11-13)
+
+ - Switch to using Portable.BouncyCastle package and update to the latest version 1.8.8.
+ - Added unit tests.
+
 ## 0.2.3 (2020-09-19)
 
  - Added the ability to generate certificates with random serial numbers.
