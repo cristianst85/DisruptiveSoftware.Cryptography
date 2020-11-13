@@ -49,8 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BouncyCastle">
-      <Version>1.8.6.1</Version>
+    <PackageReference Include="Portable.BouncyCastle">
+      <Version>1.8.8</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
