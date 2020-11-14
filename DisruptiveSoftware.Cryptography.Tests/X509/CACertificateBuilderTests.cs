@@ -36,6 +36,8 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
 
             Assert.That(() => certificateBuilderResult.Certificate.SubjectDN.ToString(), Is.EqualTo("C=Country,L=Locality,O=Organization,OU=Organization Unit,CN=Test CA"));
             Assert.That(() => certificateBuilderResult.Certificate.IssuerDN.ToString(), Is.EqualTo("C=Country,L=Locality,O=Organization,OU=Organization Unit,CN=Test CA"));
+
+            Assert.That(() => certificateBuilderResult.Certificate.Verify(certificateBuilderResult.Certificate.GetPublicKey()), Throws.Nothing);
         }
 
         [Test]
@@ -65,6 +67,8 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
 
             Assert.That(() => certificateBuilderResult.Certificate.SubjectDN.ToString(), Is.EqualTo("C=Country,L=Locality,O=Organization,OU=Organization Unit,CN=Test CA"));
             Assert.That(() => certificateBuilderResult.Certificate.IssuerDN.ToString(), Is.EqualTo("C=Country,L=Locality,O=Organization,OU=Organization Unit,CN=Test CA"));
+
+            Assert.That(() => certificateBuilderResult.Certificate.Verify(certificateBuilderResult.Certificate.GetPublicKey()), Throws.Nothing);
         }
     }
 }
