@@ -101,7 +101,7 @@ namespace DisruptiveSoftware.Cryptography.X509
             attributesValues.Add(value);
         }
 
-        protected string GetSignatureAlgorithm(int keySize)
+        protected virtual string GetSignatureAlgorithm(int keySize)
         {
             if (keySize == Constants.RSAKeySize.KeySize1024)
             {
@@ -111,17 +111,13 @@ namespace DisruptiveSoftware.Cryptography.X509
             {
                 return Org.BouncyCastle.Asn1.Pkcs.PkcsObjectIdentifiers.Sha256WithRsaEncryption.Id;
             }
-            else if (keySize == Constants.RSAKeySize.KeySize3072)
-            {
-                return Org.BouncyCastle.Asn1.Pkcs.PkcsObjectIdentifiers.Sha384WithRsaEncryption.Id;
-            }
             else if (keySize == Constants.RSAKeySize.KeySize4096)
             {
                 return Org.BouncyCastle.Asn1.Pkcs.PkcsObjectIdentifiers.Sha512WithRsaEncryption.Id;
             }
             else
             {
-                throw new Exception(string.Format("Unable to determine signature algorithm. Invalid private key size {0}.", keySize));
+                throw new Exception(string.Format("Unable to determine signature algorithm. RSA key size of {0}-bit is not supported.", keySize));
             }
         }
 
