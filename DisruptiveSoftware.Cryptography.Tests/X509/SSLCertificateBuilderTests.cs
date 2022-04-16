@@ -19,7 +19,7 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
         {
             var now = DateTime.UtcNow;
 
-            var certificateBuilderResult = new CACertificateBuilder()
+            var caCertificateBuilderResult = new CACertificateBuilder()
                 .SetSerialNumber(1)
                 .SetKeySize(2048)
                 .SetSubjectDN("Test CA", "Organization Unit", "Organization", "Locality", "Country")
@@ -27,18 +27,18 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
                 .SetNotAfter(now.AddMonths(24))
                 .Build();
 
-            Assert.That(() => certificateBuilderResult, Is.Not.Null);
-            Assert.That(() => certificateBuilderResult.Certificate, Is.Not.Null);
+            Assert.That(() => caCertificateBuilderResult, Is.Not.Null);
+            Assert.That(() => caCertificateBuilderResult.Certificate, Is.Not.Null);
 
-            var pkcs12Data = certificateBuilderResult.ExportCertificate("12345678".ToSecureString());
+            var caCertificateData = caCertificateBuilderResult.ExportCertificate("12345678".ToSecureString());
 
             var sslCertificateBuilderResult = new SSLCertificateBuilder()
                 .SetSerialNumber(2)
-                .SetKeySize(4096)
+                .SetKeySize(2048)
                 .SetSubjectDN("Test SSL", "Organization Unit", "Organization", "Locality", "Country")
                 .SetNotBefore(now)
                 .SetNotAfter(now.AddMonths(12))
-                .SetIssuerCertificate(pkcs12Data, "12345678".ToSecureString())
+                .SetIssuerCertificate(caCertificateData, "12345678".ToSecureString())
                 .SetClientAuthKeyUsage()
                 .SetServerAuthKeyUsage()
                 .SetSubjectAlternativeNames(new List<string>() { "example.com" })
@@ -47,7 +47,7 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
             Assert.That(() => sslCertificateBuilderResult, Is.Not.Null);
             Assert.That(() => sslCertificateBuilderResult.Certificate, Is.Not.Null);
 
-            Assert.That(() => sslCertificateBuilderResult.Certificate.SigAlgName, Is.EqualTo("SHA-512withRSA"));
+            Assert.That(() => sslCertificateBuilderResult.Certificate.SigAlgName, Is.EqualTo("SHA-256withRSA"));
 
             Assert.That(() => sslCertificateBuilderResult.Certificate.SerialNumber, Is.EqualTo(BigInteger.Two));
             Assert.That(() => sslCertificateBuilderResult.Certificate.NotBefore, Is.EqualTo(now.TruncateMilliseconds()));
@@ -61,7 +61,7 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
             Assert.That(() => sslCertificateBuilderResult.Certificate.SubjectDN.ToString(), Is.EqualTo("C=Country,L=Locality,O=Organization,OU=Organization Unit,CN=Test SSL"));
             Assert.That(() => sslCertificateBuilderResult.Certificate.IssuerDN.ToString(), Is.EqualTo("C=Country,L=Locality,O=Organization,OU=Organization Unit,CN=Test CA"));
 
-            Assert.That(() => sslCertificateBuilderResult.Certificate.Verify(certificateBuilderResult.Certificate.GetPublicKey()), Throws.Nothing);
+            Assert.That(() => sslCertificateBuilderResult.Certificate.Verify(caCertificateBuilderResult.Certificate.GetPublicKey()), Throws.Nothing);
         }
     }
 }
