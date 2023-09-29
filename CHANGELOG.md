@@ -1,5 +1,12 @@
 ﻿# Changelog
 
+## 0.4.0 (2023-09-30)
+
+ - Updated Portable.BouncyCastle package to the latest version 1.9.0.
+ - Marked GetSignatureAlgorithm method in X509CertificateBuilder class as virtual to allow its behavior to be overridden.
+ - Removed 3072-bit RSA key algorithm mapping and updated exception message to better reflect behavior.
+ - Updated unit tests.
+
 ## 0.3.0 (2020-11-13)
 
  - Switch to using Portable.BouncyCastle package and update to the latest version 1.8.8.
