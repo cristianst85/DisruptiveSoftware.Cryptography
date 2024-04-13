@@ -63,7 +63,8 @@ namespace DisruptiveSoftware.Cryptography.BouncyCastle.Extensions
 
         public static byte[] ExportCertificate(this X509Certificate x509Certificate, SecureString password, AsymmetricKeyParameter privateKey, string alias = "Certificate")
         {
-            var pkcs12Store = new Pkcs12Store();
+            var pkcs12StoreBuilder = new Pkcs12StoreBuilder();
+            var pkcs12Store = pkcs12StoreBuilder.Build();
 
             var x509CertificateEntry = new X509CertificateEntry(x509Certificate);
             pkcs12Store.SetCertificateEntry(alias, x509CertificateEntry);

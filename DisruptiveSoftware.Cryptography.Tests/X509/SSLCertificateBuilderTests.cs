@@ -2,10 +2,10 @@
 using DisruptiveSoftware.Cryptography.Extensions;
 using DisruptiveSoftware.Cryptography.Tests.Extensions;
 using NUnit.Framework;
+using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Math;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,8 +53,8 @@ namespace DisruptiveSoftware.Cryptography.X509.Tests
             Assert.That(() => sslCertificateBuilderResult.Certificate.NotBefore, Is.EqualTo(now.TruncateMilliseconds()));
             Assert.That(() => sslCertificateBuilderResult.Certificate.NotAfter, Is.EqualTo(now.AddMonths(12).TruncateMilliseconds()));
 
-            Assert.That(() => sslCertificateBuilderResult.Certificate.GetExtendedKeyUsage(), Is.EqualTo(new List<string>() { KeyPurposeID.IdKPServerAuth.Id, KeyPurposeID.IdKPClientAuth.Id }));
-            Assert.That(() => sslCertificateBuilderResult.Certificate.GetSubjectAlternativeNames().Cast<ArrayList>().ToList()[0], Is.EqualTo(new ArrayList() { GeneralName.DnsName, "example.com" }));
+            Assert.That(() => sslCertificateBuilderResult.Certificate.GetExtendedKeyUsage(), Is.EqualTo(new List<DerObjectIdentifier>() { new DerObjectIdentifier(KeyPurposeID.id_kp_serverAuth.Id), new DerObjectIdentifier(KeyPurposeID.id_kp_clientAuth.Id) }));
+            Assert.That(() => sslCertificateBuilderResult.Certificate.GetSubjectAlternativeNames().First(), Is.EqualTo(new List<object>() { GeneralName.DnsName, "example.com" }));
 
             Assert.That(() => sslCertificateBuilderResult.Certificate.IsSelfSigned(), Is.False);
 

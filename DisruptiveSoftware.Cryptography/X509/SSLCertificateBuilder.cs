@@ -1,5 +1,4 @@
 ﻿using DisruptiveSoftware.Cryptography.BouncyCastle.Extensions;
-using DisruptiveSoftware.Cryptography.Extensions;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Crypto;
@@ -128,13 +127,13 @@ namespace DisruptiveSoftware.Cryptography.X509
             // Set TLS Web Server Authentication (1.3.6.1.5.5.7.3.1).
             if (IsServerAuthKeyUsage)
             {
-                extendedKeyUsage.Add(KeyPurposeID.IdKPServerAuth);
+                extendedKeyUsage.Add(KeyPurposeID.id_kp_serverAuth);
             }
 
             // Set TLS Web Client Authentication (1.3.6.1.5.5.7.3.2).
             if (IsClientAuthKeyUsage)
             {
-                extendedKeyUsage.Add(KeyPurposeID.IdKPClientAuth);
+                extendedKeyUsage.Add(KeyPurposeID.id_kp_clientAuth);
             }
 
             X509V3CertificateGenerator.AddExtension(

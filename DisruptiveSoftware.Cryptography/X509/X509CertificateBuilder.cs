@@ -7,7 +7,7 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities;
 using Org.BouncyCastle.X509;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace DisruptiveSoftware.Cryptography.X509
 {
@@ -15,9 +15,9 @@ namespace DisruptiveSoftware.Cryptography.X509
     {
         protected X509V3CertificateGenerator X509V3CertificateGenerator { get; private set; }
 
-        protected IList AttributesOids { get; private set; }
+        protected IList<DerObjectIdentifier> AttributesOids { get; private set; }
 
-        protected IList AttributesValues { get; private set; }
+        protected IDictionary<DerObjectIdentifier, string> AttributesValues { get; private set; }
 
         protected int KeySize { get; private set; }
 
@@ -26,8 +26,8 @@ namespace DisruptiveSoftware.Cryptography.X509
         public X509CertificateBuilder()
         {
             this.X509V3CertificateGenerator = new X509V3CertificateGenerator();
-            this.AttributesOids = new ArrayList();
-            this.AttributesValues = new ArrayList();
+            this.AttributesOids = new List<DerObjectIdentifier>();
+            this.AttributesValues = new Dictionary<DerObjectIdentifier, string>();
         }
 
         public virtual X509CertificateBuilder SetKeySize(uint keySize)
@@ -62,10 +62,10 @@ namespace DisruptiveSoftware.Cryptography.X509
             return this;
         }
 
-        protected Tuple<IList, IList> BuildX509Name(string cn, string ou, string o, string l, string c)
+        protected Tuple<IList<DerObjectIdentifier>, IDictionary<DerObjectIdentifier, string>> BuildX509Name(string cn, string ou, string o, string l, string c)
         {
-            IList attributesOids = new ArrayList();
-            IList attributesValues = new ArrayList();
+            var attributesOids = new List<DerObjectIdentifier>();
+            var attributesValues = new Dictionary<DerObjectIdentifier, string>();
 
             if (!c.IsNullOrEmpty())
             {
@@ -92,13 +92,13 @@ namespace DisruptiveSoftware.Cryptography.X509
                 AddAttribute(X509Name.CN, cn, attributesOids, attributesValues);
             }
 
-            return new Tuple<IList, IList>(attributesOids, attributesValues);
+            return new Tuple<IList<DerObjectIdentifier>, IDictionary<DerObjectIdentifier, string>>(attributesOids, attributesValues);
         }
 
-        private void AddAttribute(DerObjectIdentifier oid, string value, IList attributesOids, IList attributesValues)
+        private void AddAttribute(DerObjectIdentifier oid, string value, IList<DerObjectIdentifier> attributesOids, IDictionary<DerObjectIdentifier, string> attributesValues)
         {
             attributesOids.Add(oid);
-            attributesValues.Add(value);
+            attributesValues.Add(oid, value);
         }
 
         protected virtual string GetSignatureAlgorithm(int keySize)
