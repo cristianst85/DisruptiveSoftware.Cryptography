@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 0.5.0 (2024-04-14)
+
+ - Switch to using BouncyCastle.Cryptography package and update to the latest version 2.3.0.
+ - Internal code refactoring due to BouncyCastle.Cryptography library API changes.
+ - Updated unit tests that were failing due to BouncyCastle.Cryptography library API changes.
+ - Updated main project to target .NET Framework 4.6.1 (required by BouncyCastle.Cryptography).
+ - Updated test project to target .NET Framework 4.6.2 (required by NUnit).
+
 ## 0.4.0 (2023-09-30)
 
  - Updated Portable.BouncyCastle package to the latest version 1.9.0.
@@ -26,7 +34,7 @@
 
 ## 0.2.0 (2020-05-21)
 
-- Updated BouncyCastle package to the latest version (1.8.6.1).
+- Updated BouncyCastle package to the latest version 1.8.6.1.
 
 ## 0.1.0 (2020-05-06)
 

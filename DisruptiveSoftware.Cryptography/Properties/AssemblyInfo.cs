@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DisruptiveSoftware.Cryptography")]
-[assembly: AssemblyDescription("Helper library to facilitate the generation of SSL certificates using the Bouncy Castle Crypto package.")]
+[assembly: AssemblyDescription("Helper library to facilitate the generation of SSL certificates using the BouncyCastle.Cryptography library.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Cristian Stoica")]
 [assembly: AssemblyProduct("DisruptiveSoftware.Cryptography")]
-[assembly: AssemblyCopyright("Copyright © 2019-2023 Cristian Stoica")]
+[assembly: AssemblyCopyright("Copyright © 2019-2024 Cristian Stoica")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.4.0")]
-[assembly: AssemblyFileVersion("0.4.0.0")]
+[assembly: AssemblyVersion("0.5.0")]
+[assembly: AssemblyFileVersion("0.5.0.0")]

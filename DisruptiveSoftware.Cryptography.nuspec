@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>DisruptiveSoftware.Cryptography</id>
+    <version>0.5.0</version>
+    <title>DisruptiveSoftware.Cryptography</title>
+    <authors>Cristian Stoica</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE</license>
+    <readme>README.md</readme>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/cristianst85/DisruptiveSoftware.Cryptography</projectUrl>
+    <description>Helper library to facilitate the generation of SSL certificates using the BouncyCastle.Cryptography library.</description>
+    <copyright>Copyright (c) 2019-2024 Cristian Stoica</copyright>
+    <tags>export ssl cryptography crypto certificates x509 ssl-certificates bouncycastle x509certificates certutil</tags>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="BouncyCastle.Cryptography" version="2.3.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="COPYING" target="COPYING" />
+    <file src="LICENSE" target="LICENSE" />
+    <file src="README.md" target="README.md" />
+    <file src="DisruptiveSoftware.Cryptography\bin\Release\DisruptiveSoftware.Cryptography.dll" target="lib\net461\DisruptiveSoftware.Cryptography.dll" />
+    <!-- <file src="DisruptiveSoftware.Cryptography\bin\Release\DisruptiveSoftware.Cryptography.xml" target="lib\net461\DisruptiveSoftware.Cryptography.xml" /> -->
+  </files>
+</package>

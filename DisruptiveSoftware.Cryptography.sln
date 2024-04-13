@@ -9,11 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		CHANGELOG.md = CHANGELOG.md
 		COPYING = COPYING
+		DisruptiveSoftware.Cryptography.nuspec = DisruptiveSoftware.Cryptography.nuspec
+		GitAssemblyVersion.targets = GitAssemblyVersion.targets
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisruptiveSoftware.Cryptography.Tests", "DisruptiveSoftware.Cryptography.Tests\DisruptiveSoftware.Cryptography.Tests.csproj", "{1EA587DC-0666-4FDB-B393-D84E70044610}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{5DE19C37-8305-4CF0-A3B7-73BF74E63B71}"
+	ProjectSection(SolutionItems) = preProject
+		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
+		.build\MSBuild.Community.Tasks.Targets = .build\MSBuild.Community.Tasks.Targets
+		.build\MSBuild.Community.Tasks.xml = .build\MSBuild.Community.Tasks.xml
+		.build\MSBuild.Community.Tasks.xsd = .build\MSBuild.Community.Tasks.xsd
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
